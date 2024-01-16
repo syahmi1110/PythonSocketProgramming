@@ -1,32 +1,33 @@
 import socket
 import math
 
-# Define the server socket
+# SERVER SOCKET DEFINE FUNCTION
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# Bind the socket to an address and port
+# BIND SOCKET TO THE SERVER ADDRESS AND PORT NUMBER
 server_socket.bind(('192.168.37.128', 8080))
 
-# Start listening for incoming connections
+# LISTENING TO THE CONNECTION
 server_socket.listen(5)
 
 print('Server is ready to connect with.')
 
 while True:
-    # Accept incoming connection
+    # INCOMING SOCKET ACCEPTION
     client_socket, addr = server_socket.accept()
     print(f'Connection from {addr}')
 
-    # Receive radius value from client
+    # RADIUS VALUE GET FROM CLIENT
     radius = client_socket.recv(1024).decode()
     radius = float(radius)
 
-    # Calculate sphere volume
+    # CALCULATION FUNCTION FOR VOLUME
     volume = (4/3) * math.pi * radius**3
 
-    # Send sphere volume back to client
+    # SEND VOLUME AFTER CALC INTO CLIENT
     volume = str(volume)
     client_socket.send(volume.encode())
 
-    # Close the client socket
+    # SOCKET CLOSE
     client_socket.close()
+
